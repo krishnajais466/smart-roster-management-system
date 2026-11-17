@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Roster Management System — Datastraw Assessment</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>Smart Roster Management System</h1>
+  <p class="sub">Datastraw — AI + Tech Intern assessment · Krishna Jaiswal ·
+    <a href="https://www.linkedin.com/in/krishna-jaiswal-it/">LinkedIn</a> ·
+    32 employees · 10 brands · 4 pods · December 2026 by default</p>
+  <p class="sub">Open this file in a browser. No install, no server, no sign-in, no data leaves your computer.</p>
+</header>
+
+<main>
+  <section class="card controls">
+    <label>Month <input type="month" id="monthInput" value="2026-12"></label>
+    <button id="generateBtn" class="primary">▶ Generate Roster</button>
+    <button id="exportBtn">⬇ Export CSV (current view)</button>
+    <button id="resetBtn">Reset to seeded data</button>
+    <span id="conflictBadge" class="badge">—</span>
+  </section>
+
+  <section class="card" id="summary"></section>
+
+  <nav class="tabs" aria-label="Roster views">
+    <button data-view="company" class="active">Company-wide</button>
+    <button data-view="pod">Pod-wise</button>
+    <button data-view="brand">Brand-wise</button>
+    <button data-view="process">Process-wise</button>
+    <button data-view="employee">Employee-wise</button>
+  </nav>
+  <div id="filterBar" class="card" style="display:none">
+    <label>Show: <select id="filterSelect"></select></label>
+  </div>
+
+  <section class="card">
+    <h2>Conflicts — what needs attention</h2>
+    <p class="hint">Mandatory = a required day is uncovered or short-staffed. Preference = coverage is fine, but something is not ideal (e.g. working a public holiday). Every conflict is explained in plain language, with a backup suggestion where one exists. The app never silently generates an invalid roster.</p>
+    <div id="conflictList"></div>
+  </section>
+
+  <section class="card">
+    <h2>Roster</h2>
+    <p class="hint">Green = covered (working / minimum met). Red = gap. Grey “–” = not a required day for that process. In Employee view, click any day cell to pre-fill the editor below. Legend: <span class="leg work">W Working</span> <span class="leg off">WO Weekly Off</span> <span class="leg leave">L Leave</span> <span class="leg comp">CO Comp-off</span> <span class="leg gap">Gap</span></p>
+    <div class="tablewrap"><table id="rosterTable"></table></div>
+  </section>
+
+  <section class="card">
+    <h2>Simulate a change</h2>
+    <p class="hint">Try the two cases from the brief, after a roster has been generated. The roster re-validates immediately and the result appears below.</p>
+    <button id="simSoleBtn">Simulate: sole employee on leave (AuraSkin, 7 Dec)</button>
+    <button id="simMultiBtn">Simulate: one of three on leave (UrbanNest CS, 7 Dec)</button>
+    <p id="simResult" class="result"></p>
+  </section>
+
+  <section class="card grid2">
+    <div>
+      <h2>Edit a day</h2>
+      <p class="hint">Manager edit. Pick an employee, a date and a new status — the roster and conflicts update immediately.</p>
+      <label>Employee <select id="editEmp"></select></label><br>
+      <label>Date <input type="date" id="editDate" value="2026-12-07"></label><br>
+      <label>Status
+        <select id="editStatus">
+          <option>Working</option><option>Weekly Off</option><option>Leave</option><option>Comp-off</option>
+        </select>
+      </label><br>
+      <button id="applyEditBtn">Apply change</button>
+      <h3>Change log</h3>
+      <ul id="changeLog"><li>No changes yet.</li></ul>
+    </div>
+    <div>
+      <h2>Public holidays (editable)</h2>
+      <ul id="holidayList"></ul>
+      <label>Date <input type="date" id="holDate" value="2026-12-25"></label>
+      <label>Name <input id="holName" value="Christmas Day"></label>
+      <button id="addHolidayBtn">Add holiday</button>
+      <h3>Add an employee</h3>
+      <label>Name <input id="newEmpName" placeholder="e.g. Priya Sharma"></label>
+      <label>Pod <select id="newEmpPod"><option>POD-A</option><option>POD-B</option><option>POD-C</option><option>POD-D</option></select></label>
+      <label>Weekly off <select id="newEmpOff"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option></select></label>
+      <button id="addEmployeeBtn">Add employee</button>
+      <h3>Add a brand</h3>
+      <label>Name <input id="newBrandName" placeholder="e.g. NewBrand"></label>
+      <button id="addBrandBtn">Add brand (CS, Sundays &amp; holidays off, min 1)</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>How to demo this in 3–5 minutes</h2>
+    <ol>
+      <li>Click <b>Generate Roster</b> for December 2026. Read the coverage % and the conflict badge at the top.</li>
+      <li>Switch tabs: Brand-wise → UrbanNest, then Process-wise → CS, then Employee-wise → Kavya Sharma.</li>
+      <li>Open a conflict card — it explains the gap in plain language and suggests a backup. Click <b>Assign this backup</b> to resolve one.</li>
+      <li>Click <b>Simulate: sole employee on leave</b> — AuraSkin goes uncovered on 7 Dec. Then click the other simulate button — UrbanNest CS still holds with one person left.</li>
+      <li>Click <b>Export CSV</b> to download the view you are looking at.</li>
+    </ol>
+    <p>Full setup, assumptions and the eight assessment questions are answered in <a href="README.md">README.md</a>. The short version is in <a href="APPROACH.md">APPROACH.md</a>.</p>
+  </section>
+</main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
